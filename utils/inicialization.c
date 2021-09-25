@@ -37,12 +37,12 @@ t_textures render_textures()
 	t_textures textures;
 
 	// vscode with "../img/", bash with "img/" 
-	textures.player = "img/player.xpm";
-	textures.wall = "img/wall.xpm";
-	textures.floor = "img/floor.xpm";
-	textures.exit = "img/exit.xpm";
-	textures.colectables = "img/collector.xpm";
-	textures.enemy = "/img/enemy.xpm";
+	textures.player = "../img/player.xpm";
+	textures.wall = "../img/wall.xpm";
+	textures.floor = "../img/floor.xpm";
+	textures.exit = "../img/exit.xpm";
+	textures.colectables = "../img/collector.xpm";
+	textures.enemy = "../img/enemy.xpm";
 	textures.img_height = 0;
 	textures.img_width = 0;
 	return (textures);

@@ -1,10 +1,12 @@
 #include "../src/so_long.h"
 
-static char*	get_texture(t_game *game,char ch)
+static char*	get_texture(t_game *game, char ch, int inc_x, int inc_y)
 {
 	if (ch == 'P')
 	{
 		game->counter.player++;
+		game->player.x = inc_x;
+		game->player.y = inc_y;
 		return (game->textures.player);
 	}
 	else if (ch == 'E')
@@ -54,7 +56,7 @@ int				printing_textures(t_game *game)
 	{
 		while(inc_x < game->map.max_x - 1)
 		{
-			texture_to_print = get_texture(game, game->map.matrix[inc_y][inc_x]);
+			texture_to_print = get_texture(game, game->map.matrix[inc_y][inc_x], inc_x, inc_y);
 			set_textures(game, inc_x, inc_y, texture_to_print);
 			inc_x++;
 		}
