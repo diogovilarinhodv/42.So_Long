@@ -12,7 +12,7 @@ OBJS	= ${SRC:.c=.o}
 
 OBJS_MLX	= ${MLX:.c=.o}
 
-SRC	= src/so_long.c utils/inicialization.c utils/printing_textures.c utils/reading.c gnl/get_next_line.c gnl/get_next_line_utils.c
+SRC	= src/so_long.c utils/inicialization.c utils/printing_textures.c utils/reading.c utils/movement.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 MLX	= mlx/*.c
 
