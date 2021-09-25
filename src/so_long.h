@@ -78,7 +78,8 @@ t_window	render_window(t_game game);
 t_image		render_image();
 t_textures	render_textures();
 
-int	read_map_file(char *map_path, t_game *game);
-int	printing_textures(t_game *game);
+int		read_map_file(char *map_path, t_game *game);
+int		printing_textures(t_game *game);
+void	move(t_game *game, int inc_x, int inc_y);
 
 #endif
