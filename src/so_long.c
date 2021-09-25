@@ -5,56 +5,8 @@ int	key_hook(int key_hook, t_game *game)
 {
 	(void)game;
 
-	if (key_hook == 0)
-	{
-		if (game->map.matrix[game->player.y][game->player.x - 1] != '1')
-		{
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.floor, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100));
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.player, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100) - 100, (game->player.y * 100));
-			game->player.x -= 1;
-		}
-		printf("A pressed!\n");
-	}
-	else if (key_hook == 1)
-	{
-		if (game->map.matrix[game->player.y + 1][game->player.x] != '1')
-		{
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.floor, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100));
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.player, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100) + 100);
-			game->player.y += 1;
-		}
-		printf("S pressed!\n");
-	}
-		
-	else if (key_hook == 2)
-	{
-		if (game->map.matrix[game->player.y][game->player.x + 1] != '1')
-		{
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.floor, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100));
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.player, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100) + 100, (game->player.y * 100));
-			game->player.x += 1;
-		}
-		printf("D pressed!\n");
-	}
-	else if (key_hook == 13)
-	{
-		if (game->map.matrix[game->player.y - 1][game->player.x] != '1')
-		{
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.floor, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100));
-			game->image.texture = mlx_xpm_file_to_image(game->window.mlx, game->textures.player, &game->textures.img_width, &game->textures.img_height);
-			mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, (game->player.x * 100), (game->player.y * 100) - 100);
-			game->player.y -= 1;
-		}
-		printf("W pressed!\n");
-	}
-
+	if (key_hook == 0 || key_hook == 1 || key_hook == 2 || key_hook == 13)
+        move(game, inc_x, inc_y);
 	return (key_hook);
 }
 
