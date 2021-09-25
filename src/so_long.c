@@ -13,5 +13,6 @@ int main(int argc, char **argv)
     game.window = render_window(game);    
     printing_textures(&game);
     mlx_loop(game.window.mlx);
+    free(game.map.matrix);
     return (0);
 }
