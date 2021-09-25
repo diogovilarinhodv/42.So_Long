@@ -14,22 +14,22 @@ static char	*get_first_line(char *map_path, t_game *game, int *fd)
 
 static int	set_new_line_in_map(t_game *game, char *line)
 {
-	char	**matrix;
+	char	**row;
 	int		cnt;
 
 	cnt = 0;
-	matrix = malloc((game->map.max_y + 1) * sizeof(char **));
-	if (matrix == NULL)
+	row = malloc((game->map.max_y + 1) * sizeof(char **));
+	if (row == NULL)
 		return (1);
 	while (cnt < game->map.max_y)
 	{
-		matrix[cnt] = game->map.matrix[cnt];
+		row[cnt] = game->map.matrix[cnt];
 		cnt++;
 	}
-	matrix[cnt] = line;
-	if (game->map.matrix == NULL)
+	row[cnt] = line;
+	if (game->map.matrix != NULL)
 		free(game->map.matrix);
-	game->map.matrix = matrix;
+	game->map.matrix = row;
 	game->map.max_y++;
 	return (0);
 }
@@ -41,12 +41,19 @@ int			read_map_file(char *map_path, t_game *game)
 
 	line = get_first_line(map_path, game, &fd);
 	if (line == NULL)
+	{
+		close(fd);
 		return (1);
+	}
 	while(line != NULL)
 	{
 		if (set_new_line_in_map(game, line) == 1)
+		{
+			close(fd);
 			return (1);
+		}
 		line = get_next_line(fd);
 	}
+	close(fd);
 	return (0);
 }

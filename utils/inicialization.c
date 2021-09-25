@@ -28,7 +28,7 @@ t_window render_window(t_game game)
 	t_window window;
 
 	window.mlx = mlx_init();
-	window.mlx_window = mlx_new_window(window.mlx, ((game.map.max_x-1) * 100), (game.map.max_y * 100), "so_long");
+	window.mlx_window = mlx_new_window(window.mlx, ((game.map.max_x - 1) * 100), (game.map.max_y * 100), "so_long");
 	return (window);
 }
 
@@ -36,12 +36,13 @@ t_textures render_textures()
 {
 	t_textures textures;
 
-	textures.player = "../img/player.xpm";
-	textures.wall = "../img/wall.xpm";
-	textures.floor = "../img/floor.xpm";
-	textures.exit = "../img/exit.xpm";
-	textures.colectables = "../img/collector.xpm";
-	textures.enemy = "../img/enemy.xpm";
+	// vscode with "../img/", bash with "img/" 
+	textures.player = "img/player.xpm";
+	textures.wall = "img/wall.xpm";
+	textures.floor = "img/floor.xpm";
+	textures.exit = "img/exit.xpm";
+	textures.colectables = "img/collector.xpm";
+	textures.enemy = "/img/enemy.xpm";
 	textures.img_height = 0;
 	textures.img_width = 0;
 	return (textures);

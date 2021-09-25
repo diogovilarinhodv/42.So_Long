@@ -39,7 +39,6 @@ static void		set_textures(t_game *game, int inc_x, int inc_y, char *texture_to_p
 	game->image.pos_x = (inc_x * 100);
 	game->image.pos_y = (inc_y * 100);
 	game->image.texture = mlx_xpm_file_to_image(game->window.mlx, texture_to_print, &game->textures.img_width, &game->textures.img_height);
-	game->image.addr = mlx_get_data_addr(game->image.texture, &game->image.bits_per_pixel, &game->image.line_length, &game->image.endian);
 	mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, game->image.pos_x, game->image.pos_y);
 }
 
