@@ -26,6 +26,7 @@ LIB_FOLDER	= lib
 all:	| $(LIB_FOLDER) $(NAME)  
 
 $(NAME): ${OBJS}
+	cd mlx && make && cd ..
 	${AR} ${LIB_FOLDER}/${LIB_NAME} ${OBJS} ${OBJS_MLX}
 	${CC} ${CFLAGS} ${LIB_FOLDER}/${LIB_NAME} -Lmlx -lmlx -framework OpenGL -framework AppKit -o so_long
 
