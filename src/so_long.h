@@ -38,6 +38,7 @@ typedef struct s_textures {
 typedef struct s_player {
 	int	x;
 	int	y;
+	int moves;
 
 }	t_player;
 
