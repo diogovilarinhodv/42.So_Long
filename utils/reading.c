@@ -1,53 +1,53 @@
 #include "../src/so_long.h"
 
-static char	*get_first_line(char *map_path, t_game *game, int *fd)
+static char	*get_first_line(char *map_path, t_game *g, int *fd)
 {
-	char *line;
+	char	*line;
 
 	*fd = open(map_path, O_RDONLY);
 	if (*fd == -1)
 		return (NULL);
 	line = get_next_line(*fd);
-	game->map.max_x = ft_strlen(line);
+	g->map.max_x = ft_strlen(line);
 	return (line);
 }
 
-static int	set_new_line_in_map(t_game *game, char *line)
+static int	set_new_line_in_map(t_game *g, char *line)
 {
 	char	**row;
 	int		cnt;
 
 	cnt = 0;
-	row = malloc((game->map.max_y + 1) * sizeof(char **));
+	row = malloc((g->map.max_y + 1) * sizeof(char **));
 	if (row == NULL)
 		return (1);
-	while (cnt < game->map.max_y)
+	while (cnt < g->map.max_y)
 	{
-		row[cnt] = game->map.matrix[cnt];
+		row[cnt] = g->map.matrix[cnt];
 		cnt++;
 	}
 	row[cnt] = line;
-	if (game->map.matrix != NULL)
-		free(game->map.matrix);
-	game->map.matrix = row;
-	game->map.max_y++;
+	if (g->map.matrix != NULL)
+		free(g->map.matrix);
+	g->map.matrix = row;
+	g->map.max_y++;
 	return (0);
 }
 
-int			read_map_file(char *map_path, t_game *game)
+int	read_map_file(char *map_path, t_game *g)
 {
 	int		fd;
 	char	*line;
 
-	line = get_first_line(map_path, game, &fd);
+	line = get_first_line(map_path, g, &fd);
 	if (line == NULL)
 	{
 		close(fd);
 		return (1);
 	}
-	while(line != NULL)
+	while (line != NULL)
 	{
-		if (set_new_line_in_map(game, line) == 1)
+		if (set_new_line_in_map(g, line) == 1)
 		{
 			close(fd);
 			return (1);

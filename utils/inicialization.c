@@ -1,8 +1,8 @@
 #include "../src/so_long.h"
 
-t_map render_map()
+t_map	render_map(void)
 {
-	t_map map;
+	t_map	map;
 
 	map.matrix = NULL;
 	map.max_x = 0;
@@ -10,49 +10,60 @@ t_map render_map()
 	return (map);
 }
 
-t_counter inic_counter()
+t_counter	inic_counter(void)
 {
-	t_counter counter;
+	t_counter	count;
 
-	counter.player = 0;
-	counter.exit = 0;
-	counter.collector = 0;
-	counter.enemy = 0;
-	counter.wall = 0;
-	counter.floor = 0;
-	return (counter);
+	count.player = 0;
+	count.exit = 0;
+	count.collect = 0;
+	count.enemy = 0;
+	count.wall = 0;
+	count.floor = 0;
+	return (count);
 }
 
-t_window render_window(t_game game)
+t_window	render_window(t_game g)
 {
-	t_window window;
+	t_window	win;
+	int			width;
+	int			height;
 
-	window.mlx = mlx_init();
-	window.mlx_window = mlx_new_window(window.mlx, ((game.map.max_x - 1) * 100), (game.map.max_y * 100), "so_long");
-	return (window);
+	width = (g.map.max_x - 1) * 100;
+	height = g.map.max_y * 100;
+	win.mlx = mlx_init();
+	win.mlx_win = mlx_new_window(win.mlx, width, height, "so_long");
+	return (win);
 }
 
-t_textures render_textures()
+char	*p(char ch)
 {
-	t_textures textures;
-
-	// vscode with "../img/", bash with "img/" 
-	textures.player = "../img/player.xpm";
-	textures.wall = "../img/wall.xpm";
-	textures.floor = "../img/floor.xpm";
-	textures.exit = "../img/exit.xpm";
-	textures.colectables = "../img/collector.xpm";
-	textures.enemy = "../img/enemy.xpm";
-	textures.img_height = 0;
-	textures.img_width = 0;
-	return (textures);
+	if (ch == 'P')
+		return ("img/player.xpm");
+	else if (ch == '1')
+		return ("img/wall.xpm");
+	else if (ch == '0')
+		return ("img/floor.xpm");
+	else if (ch == 'E')
+		return ("img/exit.xpm");
+	else if (ch == 'C')
+		return ("img/collect.xpm");
+	else if (ch == 'X')
+		return ("img/enemy.xpm");
+	return (NULL);
 }
 
-t_image render_image()
+t_textures	render_textures(t_game g)
 {
-	t_image image;
-	
-	image.pos_x = 0;
-	image.pos_y = 0;
-	return (image);
+	t_textures	t;
+
+	t.height = 0;
+	t.width = 0;
+	t.player = mlx_xpm_file_to_image(g.win.mlx, p('P'), &t.width, &t.height);
+	t.wall = mlx_xpm_file_to_image(g.win.mlx, p('1'), &t.width, &t.height);
+	t.floor = mlx_xpm_file_to_image(g.win.mlx, p('0'), &t.width, &t.height);
+	t.exit = mlx_xpm_file_to_image(g.win.mlx, p('E'), &t.width, &t.height);
+	t.collect = mlx_xpm_file_to_image(g.win.mlx, p('C'), &t.width, &t.height);
+	t.enemy = mlx_xpm_file_to_image(g.win.mlx, p('X'), &t.width, &t.height);
+	return (t);
 }

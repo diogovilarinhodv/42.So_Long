@@ -1,70 +1,81 @@
 #include "../src/so_long.h"
 
-static char*	get_texture(t_game *game, char ch, int inc_x, int inc_y)
+static void	set_texture(t_game *g, char *texture, int x, int y)
+{
+	int	width;
+	int	height;
+
+	width = x * 100;
+	height = y * 100;
+	mlx_put_image_to_window(g->win.mlx, g->win.mlx_win, texture, width, height);
+}
+
+static void	set_count(t_game *g, char ch, int x, int y)
 {
 	if (ch == 'P')
 	{
-		game->counter.player++;
-		game->player.x = inc_x;
-		game->player.y = inc_y;
-		return (game->textures.player);
+		g->count.player++;
+		g->player.x = x;
+		g->player.y = y;
 	}
 	else if (ch == 'E')
-	{
-		game->counter.exit++;
-		return (game->textures.exit);
-	}
+		g->count.exit++;
 	else if (ch == 'C')
-	{
-		game->counter.collector++;
-		return (game->textures.colectables);
-	}
+		g->count.collect++;
 	else if (ch == '1')
-		return (game->textures.wall);
+		g->count.wall++;
 	else if (ch == '0')
-		return (game->textures.floor);
+		g->count.floor++;
 	else if (ch == 'X')
-		return (game->textures.enemy);
+		g->count.enemy++;
+}
+
+static int	get_texture(t_game *g, char ch, int x, int y)
+{
+	if (ch == 'P')
+		set_texture(g, g->textures.player, x, y);
+	else if (ch == 'E')
+		set_texture(g, g->textures.exit, x, y);
+	else if (ch == 'C')
+		set_texture(g, g->textures.collect, x, y);
+	else if (ch == '1')
+		set_texture(g, g->textures.wall, x, y);
+	else if (ch == '0')
+		set_texture(g, g->textures.floor, x, y);
+	else if (ch == 'X')
+		set_texture(g, g->textures.enemy, x, y);
 	else
-		return (NULL);
+		return (1);
+	set_count(g, ch, x, y);
+	return (0);
 }
 
-static int		count_check(t_game *game)
+static int	count_check(t_game *g)
 {
-	if (game->counter.player != 1 || game->counter.exit != 1)
+	if (g->count.player != 1 || g->count.exit != 1)
 		return (1);
 	return (0);
 }
 
-static void		set_textures(t_game *game, int inc_x, int inc_y, char *texture_to_print)
+int	printing_textures(t_game *g)
 {
-	game->image.pos_x = (inc_x * 100);
-	game->image.pos_y = (inc_y * 100);
-	game->image.texture = mlx_xpm_file_to_image(game->window.mlx, texture_to_print, &game->textures.img_width, &game->textures.img_height);
-	mlx_put_image_to_window(game->window.mlx, game->window.mlx_window, game->image.texture, game->image.pos_x, game->image.pos_y);
-}
+	int		x;
+	int		y;
 
-int				printing_textures(t_game *game)
-{
-	int		inc_x;
-	int		inc_y;
-	char	*texture_to_print;
-
-	inc_x = 0;
-	inc_y = 0;
-	while(inc_y < game->map.max_y)
+	x = 0;
+	y = 0;
+	while (y < g->map.max_y)
 	{
-		while(inc_x < game->map.max_x - 1)
+		while (x < g->map.max_x - 1)
 		{
-			texture_to_print = get_texture(game, game->map.matrix[inc_y][inc_x], inc_x, inc_y);
-			set_textures(game, inc_x, inc_y, texture_to_print);
-			inc_x++;
+			if (get_texture(g, g->map.matrix[y][x], x, y) == 1)
+				game_over(g);
+			x++;
 		}
-		inc_x = 0;
-		inc_y++;
+		x = 0;
+		y++;
 	}
-	if (count_check(game))
-		return (1);
+	if (count_check(g))
+		game_over(g);
 	return (0);
 }
-
