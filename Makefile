@@ -1,6 +1,6 @@
 CC	= gcc
 
-CFLAGS	= -Wall -Wextra -Werror -Imlx
+CFLAGS	= -Wall -Wextra -Werror
 
 NAME	= run
 
@@ -10,11 +10,10 @@ RM	= rm -rf
 
 OBJS	= ${SRC:.c=.o}
 
-OBJS_MLX	= ${MLX:.c=.o}
-
-SRC	= src/so_long.c utils/inicialization.c utils/printing_textures.c utils/reading.c utils/movement.c gnl/get_next_line.c gnl/get_next_line_utils.c
-
-MLX	= mlx/*.c
+SRC	= src/so_long.c \
+	utils/inicialization.c utils/printing_textures.c utils/reading.c utils/movement.c utils/gameover.c \
+	libft/ft_itoa.c \
+	gnl/get_next_line.c gnl/get_next_line_utils.c
 
 LIB_NAME	= so_long.a
 
@@ -26,16 +25,14 @@ LIB_FOLDER	= lib
 all:	| $(LIB_FOLDER) $(NAME)  
 
 $(NAME): ${OBJS}
-	cd mlx && make && cd ..
-	${AR} ${LIB_FOLDER}/${LIB_NAME} ${OBJS} ${OBJS_MLX}
-	${CC} ${CFLAGS} ${LIB_FOLDER}/${LIB_NAME} -Lmlx -lmlx -framework OpenGL -framework AppKit -o so_long
+	${AR} ${LIB_FOLDER}/${LIB_NAME} ${OBJS}
+	${CC} ${CFLAGS} ${LIB_FOLDER}/${LIB_NAME} -Imlx -lmlx -framework OpenGL -framework AppKit -o so_long
 
 $(LIB_FOLDER):
 	mkdir -p $(LIB_FOLDER)
 
 clean:
 	${RM} ${OBJS}
-	${RM} ${OBJS_MLX}
 	${RM} so_long
 
 fclean:	clean
