@@ -3,35 +3,34 @@
 
 # include "../mlx/mlx.h"
 # include "../gnl/get_next_line.h"
-#include <fcntl.h>
+# include <fcntl.h>
+
+# define KEY_PRESS_MASK 1L<<0
+# define KEY_PRESS 02
+
+# define X_BUTTON_EXIT 17
+# define KEY_ESC 53
+# define W 13
+# define A 0
+# define S 1
+# define D 2
 
 typedef struct s_window {
 	void	*mlx;
-	void	*mlx_window;
+	void	*mlx_win;
 
 }	t_window;
 
-typedef struct s_image {
-	void	*texture;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-	int		pos_x;
-	int		pos_y;
-
-}	t_image;
-
 typedef struct s_textures {
-	char	*colectables;
+	char	*collect;
 	char	*player;
 	char	*floor;
 	char	*enemy;
 	char	*wall;
 	char	*exit;
 
-	int		img_width;
-	int		img_height;
+	int		width;
+	int		height;
 
 }	t_textures;
 
@@ -46,7 +45,7 @@ typedef struct s_counter
 {
 	int	player;
 	int	exit;
-	int collector;
+	int collect;
 	int enemy;
 	int wall;
 	int floor;
@@ -63,23 +62,26 @@ typedef struct s_map
 
 typedef struct s_game
 {
-	t_window	window;
-	t_image		image;
+	t_window	win;
 	t_textures	textures;
 	t_player	player;
-	t_counter	counter;
+	t_counter	count;
 	t_map		map;
 
 }	t_game;
 
 t_counter	inic_counter();
 t_map 		render_map();
-t_window	render_window(t_game game);
-t_image		render_image();
+t_window	render_window(t_game g);
 t_textures	render_textures();
 
-int		read_map_file(char *map_path, t_game *game);
-int		printing_textures(t_game *game);
-void	move(t_game *game, int inc_x, int inc_y);
+int		read_map_file(char *map_path, t_game *g);
+int		printing_textures(t_game *g);
+void	move(t_game *g, int inc_x, int inc_y);
+void	game_over(t_game *g);
+
+size_t	ft_strlen(const char *s);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_itoa(int n);
 
 #endif
