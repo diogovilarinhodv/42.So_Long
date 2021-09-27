@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inicialization.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/09/27 08:40:06 by dpestana          #+#    #+#             */
+/*   Updated: 2021/09/27 11:14:01 by dpestana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../src/so_long.h"
 
 t_map	render_map(void)
@@ -29,7 +41,7 @@ t_window	render_window(t_game g)
 	int			width;
 	int			height;
 
-	width = (g.map.max_x - 1) * 100;
+	width = g.map.max_x * 100;
 	height = g.map.max_y * 100;
 	win.mlx = mlx_init();
 	win.mlx_win = mlx_new_window(win.mlx, width, height, "so_long");
