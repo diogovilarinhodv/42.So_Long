@@ -1,50 +1,80 @@
-CC	= gcc
+# Compiler
+CC					=		gcc
 
-CFLAGS	= -Wall -Wextra -Werror
+# Flags for Compiller
+C_FLAGS				=		-Wall -Wextra -Werror
+MLX_FLAGS 			=		-Imlx -lmlx -framework OpenGL -framework AppKit
+NAME_FLAG 			=		-o
+OBJ_FLAG 			=		-c
 
-NAME	= run
+# Command for Library
+AR					=		ar rc
 
-AR	= ar rc
+# Folder Management
+RM					=		rm -rf
+CREATE_FOLDER 		= 		mkdir -p
 
-RM	= rm -rf
+# Norminette
+NORM 				= 		norminette
 
-OBJS	= ${SRC:.c=.o}
+# Library directory
+LIB_FOLDER			= 		lib
 
-SRC	= src/so_long.c \
-	utils/inicialization.c utils/printing_textures.c utils/reading.c utils/movement.c utils/gameover.c \
-	libft/ft_itoa.c \
-	gnl/get_next_line.c gnl/get_next_line_utils.c
+# Files
+LIB_FILE			= 		so_long.a
+HEADER_FILES		= 		src/so_long.h
+OBJ_FILES			= 		${SRC_FILES:.c=.o}
+SRC_FILES			= 		src/so_long.c \
+							utils/inicialization.c \
+							utils/printing_textures.c \
+							utils/reading.c \
+							utils/movement.c \
+							utils/gameover.c \
+							utils/error_handling/error.c \
+							utils/error_handling/error_printing.c \
+							utils/error_handling/error_reading.c \
+							libft/ft_itoa.c \
+							gnl/get_next_line.c \
+							gnl/get_next_line_utils.c
 
-LIB_NAME	= so_long.a
+# Name of executable file
+EXECUTABLE_NAME 	= 		so_long
 
-LIB_FOLDER	= lib
-
+# Convert C Files to Object Files
 .c.o:
-	${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+					${CC} ${C_FLAGS} $(OBJ_FLAG) $< $(NAME_FLAG) ${<:.c=.o}
 
-all:	| $(LIB_FOLDER) $(NAME)  
+# all
+all:				$(EXECUTABLE_NAME)  
 
-$(NAME): ${OBJS}
-	${AR} ${LIB_FOLDER}/${LIB_NAME} ${OBJS}
-	${CC} ${CFLAGS} ${LIB_FOLDER}/${LIB_NAME} -Imlx -lmlx -framework OpenGL -framework AppKit -o so_long
+# Build Project
+$(EXECUTABLE_NAME): ${OBJ_FILES}
+					$(CREATE_FOLDER) $(LIB_FOLDER)
+					${AR} ${LIB_FOLDER}/${LIB_FILE} ${OBJ_FILES}
+					${CC} ${C_FLAGS} ${LIB_FOLDER}/${LIB_FILE} $(MLX_FLAGS) $(NAME_FLAG) $(EXECUTABLE_NAME) 
 
-$(LIB_FOLDER):
-	mkdir -p $(LIB_FOLDER)
+# Norminette
+norm:
+					$(NORM) $(HEADER_FILES) $(SRC_FILES)
 
+# Clean Project
 clean:
-	${RM} ${OBJS}
-	${RM} so_long
+					${RM} ${OBJ_FILES}
+					${RM} $(EXECUTABLE_NAME)
 
-fclean:	clean
-	${RM} ${LIB_FOLDER}/${LIB_NAME}
-	${RM} $(LIB_FOLDER)
-	
-re:	fclean all
+fclean:				clean
+					${RM} ${LIB_FOLDER}/${LIB_FILE}
+					${RM} $(LIB_FOLDER)
 
-bonus: ${OBJS}
-	${AR} ${LIB} ${OBJS}
-	${CC} ${CFLAGS} ${LIB} -o so_long
+# Clean and Build Project
+re:					fclean all
 
-rebonus: re bonus
+# Bonus Commands
+bonus: 				${OBJ_FILES}
+					${AR} ${LIB_FOLDER}/${LIB_FILE} ${OBJ_FILES}
+					${CC} ${C_FLAGS} ${LIB_FOLDER}/${LIB_FILE} $(MLX_FLAGS) $(NAME_FLAG) $(EXECUTABLE_NAME) 
 
-.PHONY:	all bonus rebonus clean fclean re
+rebonus: 			re bonus
+
+# Phony (I dont remember what this do, i think is to reserve the name or something like that)
+.PHONY:				all norm bonus rebonus clean fclean re
