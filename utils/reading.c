@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:42 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 12:56:15 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:20:35 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ static char	*get_first_line(char *map_path, t_game *g, int *fd)
 	if (*fd == -1)
 		return (NULL);
 	line = get_next_line(*fd);
+	if (line == NULL)
+		return (NULL);
 	g->map.max_x = ft_strlen(line) - 1;
 	return (line);
 }
@@ -53,11 +55,11 @@ int	read_map_file(char *map_path, t_game *g)
 
 	line = get_first_line(map_path, g, &fd);
 	if (line == NULL)
-		return (open_file_error(&fd));
+		return (open_file_error(&fd, g));
 	while (line != NULL)
 	{
 		if (set_new_line_in_map(g, line) == 1)
-			return (alloc_mem_error(&fd));
+			return (alloc_mem_error(&fd, g));
 		line = get_next_line(fd);
 	}
 	close(fd);

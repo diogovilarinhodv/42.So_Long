@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:06 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 11:14:01 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:57:57 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,12 @@ char	*p(char ch)
 		return ("img/collect.xpm");
 	else if (ch == 'X')
 		return ("img/enemy.xpm");
+	else if (ch == 'Z')
+		return ("img/enemy_m1.xpm");
+	else if (ch == 'A')
+		return ("img/enemy_m2.xpm");
+	else if (ch == 'Q')
+		return ("img/enemy_m3.xpm");
 	return (NULL);
 }
 
@@ -77,5 +83,9 @@ t_textures	render_textures(t_game g)
 	t.exit = mlx_xpm_file_to_image(g.win.mlx, p('E'), &t.width, &t.height);
 	t.collect = mlx_xpm_file_to_image(g.win.mlx, p('C'), &t.width, &t.height);
 	t.enemy = mlx_xpm_file_to_image(g.win.mlx, p('X'), &t.width, &t.height);
+	t.enemy_m1 = mlx_xpm_file_to_image(g.win.mlx, p('Z'), &t.width, &t.height);
+	t.enemy_m2 = mlx_xpm_file_to_image(g.win.mlx, p('A'), &t.width, &t.height);
+	t.enemy_m3 = mlx_xpm_file_to_image(g.win.mlx, p('Q'), &t.width, &t.height);
+	t.animation = 0;
 	return (t);
 }
