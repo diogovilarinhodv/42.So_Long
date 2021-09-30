@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 12:53:10 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 12:53:15 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/09/29 12:55:02 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	wall_error(t_game *g, int y, int x)
 	else if ((x == 0 || x == (g->map.max_x - 1)) && coords != '1')
 	{
 		write(1, "Error\n", 7);
-		write(1, "Invalid char finded at vertical border\n", 42);
+		write(1, "Invalid char finded at vertical border\n", 40);
 		return (game_over(g));
 	}
 	return (0);
