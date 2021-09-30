@@ -6,14 +6,58 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:38:30 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 12:11:38 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/09/30 11:48:35 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
+char	*anim(t_game *g)
+{
+	char	*enemy_texture;
+
+	enemy_texture = g->textures.enemy;
+	if (g->textures.animation == 0)
+		enemy_texture = g->textures.enemy;
+	else if (g->textures.animation == 1)
+		enemy_texture = g->textures.enemy_m1;
+	else if (g->textures.animation == 2)
+		enemy_texture = g->textures.enemy_m2;
+	else if (g->textures.animation == 3)
+		enemy_texture = g->textures.enemy_m3;
+	else if (g->textures.animation == 4)
+		g->textures.animation = 0;
+	g->textures.animation++;
+	return (enemy_texture);
+}
+
+void	get_anim(t_game *g)
+{
+	int		x;
+	int		y;
+	int		w;
+	int		h;
+
+	x = 0;
+	y = 0;
+	while (g->map.max_y > y)
+	{
+		w = x * 100;
+		h = y * 100;
+		if (g->map.matrix[y][x] == 'X')
+			mlx_put_image_to_window(g->win.mlx, g->win.mlx_win, anim(g), w, h);
+		if (!(g->map.max_x > x))
+		{
+			y++;
+			x = 0;
+		}
+		x++;
+	}
+}
+
 int	key_hook(int key_press, t_game *g)
 {
+	get_anim(g);
 	if (key_press == A)
 		move(g, 0, -1);
 	else if (key_press == S)

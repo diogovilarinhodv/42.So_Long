@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:38:48 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 12:40:42 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/09/30 10:17:40 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,10 @@ typedef struct s_textures {
 	char	*enemy;
 	char	*wall;
 	char	*exit;
+	char	*enemy_m1;
+	char	*enemy_m2;
+	char	*enemy_m3;
+	int		animation;
 
 	int		width;
 	int		height;
@@ -97,8 +101,8 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
 
 int			args_error(void);
-int			alloc_mem_error(int *fd);
-int			open_file_error(int *fd);
+int			alloc_mem_error(int *fd, t_game *g);
+int			open_file_error(int *fd, t_game *g);
 int			square_error(t_game *g);
 int			map_char_invalid(t_game *g);
 int			too_much_entities(t_game *g);
