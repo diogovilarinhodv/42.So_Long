@@ -1,7 +1,7 @@
 # Compiler
 CC					=		gcc
 
-# Flags for Compiller
+# Flags for Compiler
 C_FLAGS				=		-Wall -Wextra -Werror
 MLX_FLAGS 			=		-Imlx -lmlx -framework OpenGL -framework AppKit
 NAME_FLAG 			=		-o
