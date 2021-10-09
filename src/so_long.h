@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:38:48 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/30 10:17:40 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 18:30:01 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@
 # include "../gnl/get_next_line.h"
 # include <fcntl.h>
 
+// Macros masks
 # define KEY_PRESS_MASK 1L
 # define KEY_PRESS 02
 
-# define X_BUTTON_EXIT 17
+// Macros keys
+# define X_BUTTON 17
 # define KEY_ESC 53
 # define W 13
 # define A 0
 # define S 1
 # define D 2
 
+// Structers
 typedef struct s_window {
 	void	*mlx;
 	void	*mlx_win;
@@ -44,6 +47,7 @@ typedef struct s_textures {
 	char	*enemy_m2;
 	char	*enemy_m3;
 	int		animation;
+	int		delay;
 
 	int		width;
 	int		height;
@@ -53,7 +57,6 @@ typedef struct s_textures {
 typedef struct s_player {
 	int	x;
 	int	y;
-	int	moves;
 
 }	t_player;
 
@@ -65,6 +68,7 @@ typedef struct s_counter
 	int	enemy;
 	int	wall;
 	int	floor;
+	int	moves;
 
 }	t_counter;
 
@@ -86,26 +90,44 @@ typedef struct s_game
 
 }	t_game;
 
+// Structers
 t_counter	inic_counter(void);
 t_map		render_map(void);
 t_window	render_window(t_game g);
 t_textures	render_textures(t_game g);
 
-int			read_map_file(char *map_path, t_game *g);
-int			printing_textures(t_game *g);
+// Utils functions
+void		read_map_file(char *map_path, t_game *g);
+void		printing_textures(t_game *g);
 void		move(t_game *g, int inc_x, int inc_y);
-int			game_over(t_game *g);
+void		get_animation(t_game *g);
 
+// Ending game correctly functions
+void		game_over(t_game *g, int clear_window, int clear_map, int error);
+
+// Libft stuff
 size_t		ft_strlen(const char *s);
 char		*ft_strjoin(char const *s1, char const *s2);
 char		*ft_itoa(int n);
 
-int			args_error(void);
-int			alloc_mem_error(int *fd, t_game *g);
-int			open_file_error(int *fd, t_game *g);
-int			square_error(t_game *g);
-int			map_char_invalid(t_game *g);
-int			too_much_entities(t_game *g);
-int			wall_error(t_game *g, int y, int x);
+// Events
+int			click_to_close(t_game *g);
+int			render_next_frame(t_game *g);
+int			key_hook(int key_press, t_game *g);
+
+// Error handling
+void		error_args(void);
+
+// Error handling reading
+void		error_open_file(int *fd, t_game *g);
+void		error_first_line(int *fd, t_game *g);
+void		error_alloc_mem(int *fd, t_game *g);
+void		error_square_map(t_game *g);
+
+// Error handling printing
+void		error_invalid_map_char(t_game *g);
+void		error_too_many_entities(t_game *g);
+void		error_horiz_wall(t_game *g);
+void		error_verti_wall(t_game *g);
 
 #endif
