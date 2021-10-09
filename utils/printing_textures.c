@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:09 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/27 12:47:03 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 17:29:29 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	set_count(t_game *g, char ch, int x, int y)
 		g->count.enemy++;
 }
 
-static int	get_texture(t_game *g, char ch, int x, int y)
+static void	get_texture(t_game *g, char ch, int x, int y)
 {
 	if (ch == 'P')
 		set_texture(g, g->textures.player, x, y);
@@ -57,15 +57,15 @@ static int	get_texture(t_game *g, char ch, int x, int y)
 	else if (ch == 'X')
 		set_texture(g, g->textures.enemy, x, y);
 	else
-		return (1);
+		error_invalid_map_char(g);
 	set_count(g, ch, x, y);
-	return (0);
 }
 
-int	printing_textures(t_game *g)
+void	printing_textures(t_game *g)
 {
 	int		x;
 	int		y;
+	char	coords;
 
 	x = 0;
 	y = 0;
@@ -73,16 +73,17 @@ int	printing_textures(t_game *g)
 	{
 		while (x < g->map.max_x)
 		{
-			if (get_texture(g, g->map.matrix[y][x], x, y) == 1)
-				return (map_char_invalid(g));
-			if (wall_error(g, y, x) == 1)
-				return (1);
+			get_texture(g, g->map.matrix[y][x], x, y);
+			coords = g->map.matrix[y][x];
+			if ((y == 0 || y == (g->map.max_y - 1)) && coords != '1')
+				error_verti_wall(g);
+			else if ((x == 0 || x == (g->map.max_x - 1)) && coords != '1')
+				error_horiz_wall(g);
 			x++;
 		}
 		x = 0;
 		y++;
 	}
-	if (too_much_entities(g))
-		return (1);
-	return (0);
+	if (g->count.player != 1 || g->count.exit != 1 || g->count.collect < 1)
+		error_too_many_entities(g);
 }

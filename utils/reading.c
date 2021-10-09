@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:42 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/30 10:20:35 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 18:16:29 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ static char	*get_first_line(char *map_path, t_game *g, int *fd)
 
 	*fd = open(map_path, O_RDONLY);
 	if (*fd == -1)
-		return (NULL);
+		error_open_file(fd, g);
 	line = get_next_line(*fd);
 	if (line == NULL)
-		return (NULL);
+		error_first_line(fd, g);
 	g->map.max_x = ft_strlen(line) - 1;
 	return (line);
 }
 
-static int	set_new_line_in_map(t_game *g, char *line)
+static void	set_new_line_in_map(t_game *g, char *line, int *fd)
 {
 	char	**row;
 	int		cnt;
@@ -34,7 +34,7 @@ static int	set_new_line_in_map(t_game *g, char *line)
 	cnt = 0;
 	row = malloc((g->map.max_y + 1) * sizeof(char **));
 	if (row == NULL)
-		return (1);
+		error_alloc_mem(fd, g);
 	while (cnt < g->map.max_y)
 	{
 		row[cnt] = g->map.matrix[cnt];
@@ -45,25 +45,20 @@ static int	set_new_line_in_map(t_game *g, char *line)
 		free(g->map.matrix);
 	g->map.matrix = row;
 	g->map.max_y++;
-	return (0);
 }
 
-int	read_map_file(char *map_path, t_game *g)
+void	read_map_file(char *map_path, t_game *g)
 {
 	int		fd;
 	char	*line;
 
 	line = get_first_line(map_path, g, &fd);
-	if (line == NULL)
-		return (open_file_error(&fd, g));
 	while (line != NULL)
 	{
-		if (set_new_line_in_map(g, line) == 1)
-			return (alloc_mem_error(&fd, g));
+		set_new_line_in_map(g, line, &fd);
 		line = get_next_line(fd);
 	}
 	close(fd);
-	if (square_error(g) == 1)
-		return (1);
-	return (0);
+	if (g->map.max_x == g->map.max_y)
+		error_square_map(g);
 }

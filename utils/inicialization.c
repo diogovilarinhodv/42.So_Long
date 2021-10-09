@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:06 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/29 12:57:57 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 16:35:05 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_counter	inic_counter(void)
 	count.enemy = 0;
 	count.wall = 0;
 	count.floor = 0;
+	count.moves = 0;
 	return (count);
 }
 
@@ -87,5 +88,6 @@ t_textures	render_textures(t_game g)
 	t.enemy_m2 = mlx_xpm_file_to_image(g.win.mlx, p('A'), &t.width, &t.height);
 	t.enemy_m3 = mlx_xpm_file_to_image(g.win.mlx, p('Q'), &t.width, &t.height);
 	t.animation = 0;
+	t.delay = 0;
 	return (t);
 }

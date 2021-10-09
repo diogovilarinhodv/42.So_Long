@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:15 by dpestana          #+#    #+#             */
-/*   Updated: 2021/09/30 11:05:19 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 18:26:00 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void	move_count(t_game *g)
 	char	*moves;
 	char	*qtd_moves;
 
-	g->player.moves++;
-	qtd_moves = ft_itoa(g->player.moves);
+	g->count.moves++;
+	qtd_moves = ft_itoa(g->count.moves);
 	moves = ft_strjoin("\nMoves: ", qtd_moves);
 	mlx_put_image_to_window(g->win.mlx, g->win.mlx_win, g->textures.wall, 0, 0);
 	mlx_string_put(g->win.mlx, g->win.mlx_win, 0, 0, 1, moves);
@@ -68,11 +68,11 @@ void	move(t_game *g, int y, int x)
 		set_new_pos(g, y, x);
 		move_count(g);
 		if (next == 'E')
-			game_over(g);
+			game_over(g, 1, 1, 0);
 	}
 	if (next == 'X')
 	{
 		move_count(g);
-		game_over(g);
+		game_over(g, 1, 1, 0);
 	}
 }
