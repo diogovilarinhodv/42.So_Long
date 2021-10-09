@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:15 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/09 18:26:00 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/09 19:13:20 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void	set_new_pos(t_game *g, int new_y_pos, int new_x_pos)
 		g->player.x += new_x_pos;
 	else if (new_y_pos != 0)
 		g->player.y += new_y_pos;
+	g->map.matrix[g->player.y][g->player.x] = 'P';
 }
 
 static void	set_texture(t_game *g, int y, int x)
