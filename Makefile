@@ -31,7 +31,8 @@ SRC_FILES			= 		src/so_long.c \
 							utils/movement.c \
 							utils/gameover.c \
 							utils/events.c \
-							utils/animation.c \
+							utils/enemy_animation.c \
+							utils/enemy_movement.c \
 							utils/error_handling/error.c \
 							utils/error_handling/error_printing.c \
 							utils/error_handling/error_reading.c \
