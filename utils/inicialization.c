@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   inicialization.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpestana <dpestana@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:06 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/09 16:35:05 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/10 12:20:40 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_window	render_window(t_game g)
 	return (win);
 }
 
-char	*p(char ch)
+static char	*p(char ch)
 {
 	if (ch == 'P')
 		return ("img/player.xpm");

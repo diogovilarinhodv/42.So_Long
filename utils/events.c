@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   events.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpestana <dpestana@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 18:27:34 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/09 18:29:11 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/10 12:22:10 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ int	click_to_close(t_game *g)
 	return (0);
 }
 
-int	render_next_frame(t_game *g)
+int	enemy_events(t_game *g)
 {
 	if (g->textures.delay == 5000)
-		get_animation(g);
+		enemy_animation(g);
 	g->textures.delay++;
 	if (g->textures.delay == 10000)
 		g->textures.delay = 0;
