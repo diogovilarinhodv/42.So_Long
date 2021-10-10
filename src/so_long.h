@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dpestana <dpestana@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:38:48 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/09 18:40:29 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/10 12:22:45 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ typedef struct s_game
 
 }	t_game;
 
-// Structers
+// Inicialization functions
 t_counter	inic_counter(void);
 t_map		render_map(void);
 t_window	render_window(t_game g);
@@ -100,7 +100,8 @@ t_textures	render_textures(t_game g);
 void		read_map_file(char *map_path, t_game *g);
 void		printing_textures(t_game *g);
 void		move(t_game *g, int inc_x, int inc_y);
-void		get_animation(t_game *g);
+void		enemy_animation(t_game *g);
+void		enemy_moving(t_game *g, int x, int y);
 
 // Ending game correctly functions
 void		game_over(t_game *g, int clear_window, int clear_map, int error);
@@ -112,7 +113,7 @@ char		*ft_itoa(int n);
 
 // Events
 int			click_to_close(t_game *g);
-int			render_next_frame(t_game *g);
+int			enemy_events(t_game *g);
 int			key_hook(int key_press, t_game *g);
 
 // Error handling
