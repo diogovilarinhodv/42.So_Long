@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "/Users/dpestana/Documents/so_long/so_long",
             "args": [
-                "map/"
+                "map/map.ber"
             ],
             "stopAtEntry": false,
             "cwd": "/Users/dpestana/Documents/so_long/",
