@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 10:38:48 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/11 15:03:56 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/11 16:20:30 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		error_args(void);
 void		error_open_file(int *fd, t_game *g);
 void		error_first_line(int *fd, t_game *g);
 void		error_alloc_mem(int *fd, t_game *g);
-void		error_line_longer(t_game *g);
+void		error_not_rectangle(t_game *g);
 void		error_square_map(t_game *g);
 
 // Error handling printing
