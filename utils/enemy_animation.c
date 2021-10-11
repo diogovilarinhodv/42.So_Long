@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_animation.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpestana <dpestana@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/09 18:27:41 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/10 12:21:17 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/11 13:00:47 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	enemy_animation(t_game *g)
 		{
 			mlx_put_image_to_window(g->win.mlx, g->win.mlx_win, anim(g), w, h);
 			if (g->textures.animation == 1)
-				enemy_moving(g, x , y);
+				enemy_moving(g, x, y);
 		}
 		if (!(g->map.max_x > x))
 		{

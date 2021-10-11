@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   enemy_movement.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dpestana <dpestana@student.42lisboa.com    +#+  +:+       +#+        */
+/*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/10 12:06:44 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/10 12:15:51 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/11 13:03:19 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	set_texture(t_game *g, char *t, int y, int x)
 	mlx_put_image_to_window(g->win.mlx, g->win.mlx_win, t, x, y);
 }
 
-static void x_mov(t_game *g, int x, int y, int next)
+static void	x_mov(t_game *g, int x, int y, int next)
 {
 	set_texture(g, g->textures.floor, y * 100, x * 100);
 	set_texture(g, g->textures.enemy, y * 100, (x + next) * 100);
@@ -27,7 +27,7 @@ static void x_mov(t_game *g, int x, int y, int next)
 	g->map.matrix[y][x + next] = 'X';
 }
 
-static void y_mov(t_game *g, int x, int y, int next)
+static void	y_mov(t_game *g, int x, int y, int next)
 {
 	set_texture(g, g->textures.floor, y * 100, x * 100);
 	set_texture(g, g->textures.enemy, (y + next) * 100, x * 100);
@@ -39,10 +39,10 @@ static void y_mov(t_game *g, int x, int y, int next)
 
 void	enemy_moving(t_game *g, int x, int y)
 {
-	char coords_right;
-	char coords_left;
-	char coords_down;
-	char coords_up;
+	char	coords_right;
+	char	coords_left;
+	char	coords_down;
+	char	coords_up;
 
 	coords_right = g->map.matrix[y][x + 1];
 	coords_left = g->map.matrix[y][x - 1];

@@ -6,7 +6,7 @@
 /*   By: dpestana <dpestana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:40:42 by dpestana          #+#    #+#             */
-/*   Updated: 2021/10/09 18:16:29 by dpestana         ###   ########.fr       */
+/*   Updated: 2021/10/11 15:54:17 by dpestana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,8 @@ void	read_map_file(char *map_path, t_game *g)
 	while (line != NULL)
 	{
 		set_new_line_in_map(g, line, &fd);
+		if (g->map.max_x != ft_strlen(line) - 1)
+			error_line_longer(g);
 		line = get_next_line(fd);
 	}
 	close(fd);
